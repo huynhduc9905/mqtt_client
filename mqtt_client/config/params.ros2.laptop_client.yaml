@@ -1,0 +1,33 @@
+/**/*:
+  ros__parameters:
+    broker:
+      host: m41a4afc.ala.asia-southeast1.emqxsl.com
+      port: 8883
+      user: 'test_client'
+      pass: '1'
+      tls:
+        enabled: true      # [false] whether to connect via SSL/TLS
+        ca_certificate: /home/hoc3hc/catkin_ws2/emqxsl-ca.crt   # [/etc/ssl/certs/ca-certificates.crt] CA certificate file trusted by client (relative to ROS_HOME)
+    client:
+      id: emqx_cloud9a58f2
+    bridge:
+      # Publish ros SERIALIZED message to broker server
+      ros2mqtt:
+        ros_topics: 
+          - /cmd_vel
+        /cmd_vel:
+          mqtt_topic: cmd_vel
+          primitive: false
+          advanced:
+            ros:
+              queue_size: 10
+      # Subscribe to broker server, DESERIALIZE ros message and publish locally
+      mqtt2ros:
+        mqtt_topics: 
+          - cmd_vel
+        cmd_vel:
+          ros_topic: /cmd_vel/pong
+          primitive: false
+          advanced:
+            ros:
+              queue_size: 10
